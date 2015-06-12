@@ -8,6 +8,7 @@ You shoud install
 - pip install beautifulsoup4
 - sudo apt-get install libxml2-dev libxslt-dev python-dev for linux like system
 - sudo port install py27-lxml or sudo apt-get install python3-lxml
+- pip install lxml
 - pip install jieba
 
 
