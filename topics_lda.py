@@ -19,6 +19,11 @@ import jieba
 import jieba.posseg as pseg
 
 
+jieba.load_userdict("new.dict_all")
+# import jieba.analyse
+# jieba.analyse.load_stop_words("stop_words_list.txt")
+
+
 def uri_to_file_name(uri):
     return uri.replace("/", "-")
 
@@ -54,8 +59,8 @@ for id, session in sorted(sessions.iteritems(), key=lambda t: t[0]):
     corpus.append(words)
     titles.append(session["title"])
 
-n_topics = 15
-n_top_words = 50
+n_topics = 10
+n_top_words = 10
 n_features = 6000
 
 # vectorizer = TfidfVectorizer(analyzer='word', ngram_range=(1,1), min_df = 0, stop_words = 'english')
@@ -86,16 +91,30 @@ import numpy as np
 vocab = word
 
 
-model = lda.LDA(n_topics=4, n_iter=500, random_state=1)
-model.fit(tfidf)
-topic_word = model.topic_word_
-n_top_words = 5
-for i, topic_dist in enumerate(topic_word):
-    topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
-    s = ''
-    for word in topic_words :
-        s = s + ' ' + word.encode('utf-8')
-    print('Topic ' + str(i) + ' : ' + s )
+
+if True:
+    model = lda.LDA(n_topics=n_topics, n_iter=500, random_state=1)
+    model.fit(tfidf)
+    topic_word = model.topic_word_
+    for i, topic_dist in enumerate(topic_word):
+        topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
+        s = ''
+        for word in topic_words :
+            s = s + ' ' + word.encode('utf-8')
+        print('Topic ' + str(i) + ' : ' + s )
+else :
+    # Fit the NMF model
+    print("Fitting the NMF model with n_samples=%d and n_features=%d..."% (tfidf.shape[0], n_features))
+    nmf = NMF(n_components=n_topics, random_state=1).fit(tfidf)
+    feature_names = vectorizer.get_feature_names()
+    
+    for topic_idx, topic in enumerate(nmf.components_):
+        print("Topic #%d:" % topic_idx)
+        print(" ".join([feature_names[i]
+                        for i in topic.argsort()[:-n_top_words - 1:-1]]))
+        print()
+
+
 # 
 # doc_topic = model.doc_topic_
 # for i in range(0, len(titles)):
