@@ -5,7 +5,6 @@ You shoud install
 
 - pip install -U numpy scipy scikit-learn
 - pip install "ipython[notebook]"
-- pip install "ipython[notebook]"
 - pip install beautifulsoup4
 - sudo port install py27-lxml or sudo apt-get install python3-lxml
 - pip install jieba
@@ -17,4 +16,4 @@ You shoud install
 > ipython notebook
 </pre>
 
-- Then Just Run topics_lda.py
+- Then Just Run topics_lda.ipynb
