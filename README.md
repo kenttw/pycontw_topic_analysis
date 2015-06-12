@@ -11,7 +11,7 @@ You shoud install
 - sudo port install py27-lxml or sudo apt-get install python3-lxml
 - pip install lxml
 - pip install jieba
-
+- pip install lda
 
 ## How to Use Run Exp
 <pre>
