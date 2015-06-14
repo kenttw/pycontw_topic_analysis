@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding/teststop.py=utf-8
+encoding/topic_from_pixnet.py=utf-8
 encoding/topics_gensim.py=utf-8
 encoding/topics_lda.py=utf-8

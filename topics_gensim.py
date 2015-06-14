@@ -17,9 +17,11 @@ import lxml.etree as ET
 
 import jieba
 import jieba.posseg as pseg
-
+from jieba import analyse
 
 jieba.load_userdict("new.dict_all")
+analyse.set_stop_words('./    stopword.txt')
+
 # import jieba.analyse
 # jieba.analyse.load_stop_words("stop_words_list.txt")
 
